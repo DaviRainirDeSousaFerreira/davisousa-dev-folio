@@ -20,14 +20,28 @@ E-mail: ${formData.email}
 
 Mensagem: ${formData.message}`;
     
-    // WhatsApp number (remove spaces and parentheses)
+    // WhatsApp number
     const phoneNumber = "5585998006527";
     
-    // Create WhatsApp URL
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+    // Try different WhatsApp URLs
+    const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     
-    // Open WhatsApp
-    window.open(whatsappUrl, '_blank');
+    let whatsappUrl;
+    if (isMobile) {
+      // Use WhatsApp app protocol for mobile
+      whatsappUrl = `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(whatsappMessage)}`;
+    } else {
+      // Use web.whatsapp.com for desktop
+      whatsappUrl = `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(whatsappMessage)}`;
+    }
+    
+    // Try to open WhatsApp
+    try {
+      window.location.href = whatsappUrl;
+    } catch (error) {
+      // Fallback to wa.me if the above fails
+      window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+    }
     
     // Show success message
     toast({
