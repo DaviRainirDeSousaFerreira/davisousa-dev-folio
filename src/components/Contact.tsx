@@ -27,7 +27,7 @@ Mensagem: ${formData.message}`;
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
     
     // Open WhatsApp
-    window.open(whatsappUrl, '_blank');
+    window.location.href = whatsappUrl;
     
     // Show success message
     toast({
