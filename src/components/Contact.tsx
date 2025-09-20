@@ -20,14 +20,14 @@ E-mail: ${formData.email}
 
 Mensagem: ${formData.message}`;
     
-    // WhatsApp number
+    // WhatsApp number (remove spaces and parentheses)
     const phoneNumber = "5585998006527";
     
-    // Create WhatsApp URL using wa.me (most reliable)
+    // Create WhatsApp URL
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
     
-    // Redirect directly to WhatsApp
-    window.location.href = whatsappUrl;
+    // Open WhatsApp
+    window.open(whatsappUrl, '_blank');
     
     // Show success message
     toast({
